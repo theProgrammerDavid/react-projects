@@ -8,11 +8,11 @@ export default function Todo({ todo, toggleTodo }) {
 
 
     return (
-        <div>
+        <div class="spacer">
 
-            <label>
+            <label >
                 <input type="checkbox" checked={todo.complete} onChange={handleTodoClick} />
-                {todo.name}
+                <span class="white-text">{todo.name}</span>
             </label>
         </div>
     )
