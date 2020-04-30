@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"
+        integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <title>Chat App</title>
+    <script defer src="http://localhost:4500/socket.io/socket.io.js"></script>
+    <script defer src="script.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                Left side Column
+            </div>
+            <div class="col-10">
+                <div class="row" id="message-container">
+                   
+                </div>
+
+            </div>
+            <div class="col">
+                Right side column
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="align-bottom">
+            <form id="send-container" class="">
+
+                <input type="text" id="message-input">
+                <button type="submit" id="submit-button">Send</button>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
