@@ -1,43 +1,34 @@
-const socket = io('http://localhost:4500');
-const messageForm = document.getElementById('send-container');
-const messageContainer = document.getElementById('message-container');
-const messageInput = document.getElementById('message-input');
+const socket = io('http://localhost:3000')
+const messageContainer = document.getElementById('message-container')
+const messageForm = document.getElementById('send-container')
+const messageInput = document.getElementById('message-input')
+const name='dav';
+//const name = prompt('What is your name?')
+appendMessage('You joined')
+socket.emit('new-user', name)
 
-const name = prompt('what is your name');
+socket.on('chat-message', data => {
+    appendMessage(`${data.name}: ${data.message}`)
+})
 
+socket.on('user-connected', name => {
+    appendMessage(`${name} connected`)
+})
 
-appendMessage('you joined');
-socket.emit('new-user', name);
+socket.on('user-disconnected', name => {
+    appendMessage(`${name} disconnected`)
+})
 
 messageForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const message = messageInput.value;
-    socket.emit('send-chat-message', message);
+    e.preventDefault()
+    const message = messageInput.value
+    appendMessage(`You: ${message}`)
+    socket.emit('send-chat-message', message)
     messageInput.value = ''
-});
-socket.on('chat-message', data => {
-    appendMessage(`${data.name}: ${data.message}`);
-    console.log(data);
-
-});
-socket.on('disconnect', data => {
-    appendMessage(`${data.name} disconnected`);
-    
-});
-
-socket.on('new-user', name => {
-    appendMessage(`${name} connected`);
-    // console.log(data);
-
-});
+})
 
 function appendMessage(message) {
-    var br = document.createElement("br");
-    messageContainer.append(br);
-    const ele = document.createElement('div');
-    ele.innerText = `${message}`;
-
-    messageContainer.append(ele);
-    
-
+    const messageElement = document.createElement('div')
+    messageElement.innerText = message
+    messageContainer.append(messageElement)
 }
