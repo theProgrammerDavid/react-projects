@@ -6,7 +6,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
-import { Container } from '@material-ui/core'
 
 interface Todo {
     todos: { id: number; content: string; }[];
@@ -34,19 +33,13 @@ const Todos: React.FC<Todo> = (todo) => {
             return (
                 <div key={todo.id}>
 
-                    <ListItem button >
+                    <ListItem button onClick={()=>{cb(todo.id)}}>
                         <ListItemIcon>
                             <SendIcon />
                         </ListItemIcon>
                         <ListItemText primary={todo.content} />
                     </ListItem>
                 </div>
-                // <div key={todo.id}> 
-                //     <ListItem button>
-                //         <ListItemText primary={todo.content}></ListItemText>
-                //     <span onClick={() => { cb(todo.id) }}>{todo.content}</span>
-                //     </ListItem>
-                // </div>
             )
         }))
     ) : (<p>You have no more todos left</p>);
