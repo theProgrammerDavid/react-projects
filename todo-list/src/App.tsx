@@ -1,7 +1,8 @@
-import React, { ChangeEvent, MouseEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import Todos from './todos';
 import './App.css';
 import Navbar from './NavBar';
+import { Container, TextField, Button } from '@material-ui/core'
 
 class App extends React.Component {
 
@@ -15,7 +16,10 @@ class App extends React.Component {
   };
 
   deleteTodo = (id: number) => {
-    console.log('delete todo ');
+    const todos = this.state.todos.filter(todo => {
+      return todo.id !== id;
+    })
+    this.setState({ todos: todos });
   }
 
   onTodoChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -26,11 +30,16 @@ class App extends React.Component {
 
   addNewTodo = () => {
     this.state.currentIndex++;
+   
     this.state.todos.push({
       id: this.state.currentIndex, content: this.state.newTodoValue
     });
-    // this.forceUpdate();
-    this.setState(this.state)
+    // const newArray = this.state.todos.push({id: this.state.currentIndex, content: this.state.newTodoValue})
+    // this.setState({
+    //   todos: newArray
+    // })
+    this.forceUpdate();
+    // this.setState(this.state)
 
   }
 
@@ -38,10 +47,16 @@ class App extends React.Component {
     return (
       <>
         <Navbar></Navbar>
-
-        <input type="text" placeholder="new todo" value={this.state.newTodoValue} onChange={this.onTodoChange}></input>
-        <button onClick={this.addNewTodo}>Add</button>
-        <Todos todos={this.state.todos} cb={this.deleteTodo}></Todos>
+        <br />
+        <Container>
+          <TextField id="filled-basic" label="Add New Todo" variant="filled" value={this.state.newTodoValue} onChange={this.onTodoChange} />
+          <Button variant="contained" color="primary" onClick={this.addNewTodo}>
+            Primary
+          </Button>
+          {/* <input type="text" placeholder="new todo" value={this.state.newTodoValue} onChange={this.onTodoChange}></input> */}
+          {/* <button onClick={this.addNewTodo}>Add</button> */}
+          <Todos todos={this.state.todos} cb={this.deleteTodo}></Todos>
+        </Container>
       </>
     )
   }
