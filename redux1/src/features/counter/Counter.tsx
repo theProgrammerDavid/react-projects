@@ -7,6 +7,9 @@ import {
   addTodo,
   incrementAsync,
   selectTodo,
+  addTodoAsync,
+  checkLogin,
+  login,
   selectCount,
 } from './counterSlice';
 import styles from './Counter.module.css';
@@ -14,6 +17,7 @@ import styles from './Counter.module.css';
 export function Counter() {
   const count = useSelector(selectCount);
   const todoList = useSelector(selectTodo);
+  const isLoggedIn = useSelector(checkLogin);
   const dispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
   // const [todo, setTodo] = useState(['']);
@@ -21,6 +25,14 @@ export function Counter() {
   return (
     <div>
       <div className={styles.row}>
+        <p>Logged In: { isLoggedIn ? 'YES':'NO'}</p>
+        <button
+        onClick = {()=>{dispatch(login(true))}}
+        >Log In</button> 
+        <button
+        onClick = {()=>{dispatch(login(false))}}
+        >Log Out</button>
+        <br />
         <button
           className={styles.button}
           aria-label="Increment value"

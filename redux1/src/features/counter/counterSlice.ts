@@ -3,12 +3,14 @@ import { AppThunk, RootState } from '../../app/store';
 
 interface CounterState {
   value: number;
-  todoList: String[]
+  todoList: String[];
+  loggedIn: boolean;
 }
 
 const initialState: CounterState = {
   value: 0,
-  todoList: ['']
+  todoList: [''],
+  loggedIn: false
 };
 
 export const counterSlice = createSlice({
@@ -33,12 +35,15 @@ export const counterSlice = createSlice({
     },
 
     addTodo: (state, action: PayloadAction<String>) => {
-      state.todoList.push(action.payload)   
-     }
+      state.todoList.push(action.payload)
+    },
+    login: (state, action: PayloadAction<boolean>) => {
+      state.loggedIn = action.payload;
+    }
   },
 });
 
-export const { increment, decrement, incrementByAmount, addTodo } = counterSlice.actions;
+export const { increment, decrement, incrementByAmount, addTodo, login } = counterSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -55,10 +60,11 @@ export const addTodoAsync = (todo: String): AppThunk => dispatch => {
     dispatch(addTodo(todo));
   }, 1000)
 }
+
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCount = (state: RootState) => state.counter.value;
 export const selectTodo = (state: RootState) => state.counter.todoList;
-
+export const checkLogin = (state: RootState) => state.counter.loggedIn;
 export default counterSlice.reducer;
